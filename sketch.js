@@ -1,8 +1,19 @@
 /*
-@author 
+@author Cody
 @date 2021-11-11
 
-
+version comments
+    1-line passage, render text
+    highlights, sounds
+    block on error #1
+    block on error #2
+    block on error setting
+    text wrap
+    word wrap
+    WPM
+    accuracy
+    score
+    special screen
  */
 
 
