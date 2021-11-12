@@ -3,17 +3,19 @@
 @date 2021-11-11
 
 version comments
-    1-line passage, render text
-    highlights, sounds
-    block on error #1
-    block on error #2
-    block on error setting
+    1-line passage, basic render of text
+    getCurrentChar()
+    start typing, set incorrect/correct
+    cursor
+    highlight incorrect/correct, sounds
     text wrap
     word wrap
+    box above current word
     WPM
     accuracy
     score
     special screen
+    block on errors
  */
 
 
@@ -37,7 +39,7 @@ function setup() {
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
 
-    passage = new Passage("Hello! I'm Cody.")
+    passage = new Passage("Hello! My name is Cody Tian.")
 }
 
 
