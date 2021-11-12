@@ -17,6 +17,12 @@ class Passage {
         let leftMargin = 20
         let topMargin = 20
 
+        let x = leftMargin
+        let y = topMargin + textAscent() // our text coordinates are on
+        // the bottom-left, not the top-left
+        // and luckily, that's our cursor!
+        let cursor = new p5.Vector(x, y)
+
         /*  display the entire passage without text wrap
          */
         for (let i = 0; i < this.text.length; i++) {
@@ -30,9 +36,6 @@ class Passage {
             /*  draw current letter above the highlight box in terms of z-index
              */
             // let's find the x position of our character
-            let x = leftMargin + textWidth(' ')*i // our position is i spaces'
-            let y = topMargin + textAscent() // our text coordinates are on
-            // the bottom-left, not the top-left
 
             // and we can finally draw it!
             text(c, x, y)
@@ -42,6 +45,7 @@ class Passage {
                 each highlight box should be 1 pixel bigger on left and right
                 1+1=2 total pixels of extra width
              */
+            cursor.x += textWidth(' ')
 
             /*  let's do a simple word wrap, wrapping just by character!
              */
@@ -55,6 +59,9 @@ class Passage {
                     if the width of that word + our cursor + current space >
                      limit, then newline
              */
+
+            // we can increment our x position
+            x += textWidth(' ') // our position is i spaces
         }
 
         /*  add current word top highlight horizontal bar
@@ -72,6 +79,9 @@ class Passage {
 
         /*  add cursor below current character
         */
+        cursor.x = leftMargin + this.index*textWidth(' ')
+        cursor.y = topMargin + textAscent() + textDescent()
+        rect(cursor.x, cursor.y, textWidth(' '), 3)
 
         // TODO check if we're finished, otherwise we try to read [index+1]
         

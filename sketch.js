@@ -4,7 +4,7 @@
 
 version comments
 .   1-line passage, basic render of text
-    start typing, getCurrentChar(), set incorrect/correct
+.   start typing, getCurrentChar(), set incorrect/correct
     cursor
     highlight incorrect/correct, sounds
     text wrap
