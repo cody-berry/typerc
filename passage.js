@@ -79,19 +79,30 @@ class Passage {
 
 
     getCurrentChar() {
+        // we want our text's letter at our index
+        return this.text[this.index]
     }
 
 
     // set the current char to correct
     setCorrect() {
-      
+        // as always, we increase our index
+        this.index += 1
+        // and append a 'true' to our correct list, meaning that last time
+        // we got a correct
+        this.correctList.push(true)
 
+        // the line below is for testing
         console.assert(this.correctList.length === this.index)
     }
 
 
-    // set the current char to be incorrect
+    // set the current char to be incorrect, skip
     setIncorrect() {
-
+        // we increase our index as well, not blocking on errors
+        this.index += 1
+        // and append a 'false' to our correct list, meaning that we got an
+        // incorrect ; ;
+        this.correctList.push(false)
     }
 }

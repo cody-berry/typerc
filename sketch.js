@@ -3,9 +3,8 @@
 @date 2021-11-11
 
 version comments
-    1-line passage, basic render of text
-    getCurrentChar()
-    start typing, set incorrect/correct
+.   1-line passage, basic render of text
+    start typing, getCurrentChar(), set incorrect/correct
     cursor
     highlight incorrect/correct, sounds
     text wrap
@@ -47,6 +46,8 @@ function draw() {
     background(234, 34, 24)
 
     passage.render()
+    console.log(passage.text)
+    console.log(passage.correctList)
 }
 
 
@@ -72,3 +73,25 @@ function draw() {
 //         incorrectSound.play()
 //     }
 // }
+
+function keyPressed() {
+    // we don't want our things to trigger if we press Shift, Alt, Control,
+    // or Capslock. The capslock keycode is 20.
+    // TODO disable windows from typing
+    if (keyCode === ALT ||
+        keyCode === SHIFT ||
+        keyCode === CONTROL ||
+        keyCode === 20) {
+        return
+    }
+
+    // let's set our correct keys to be correct!
+    if (passage.getCurrentChar() === key) {
+        passage.setCorrect()
+        correctSound.play()
+    } else {
+        passage.setIncorrect()
+        incorrectSound.play()
+    }
+}
+
