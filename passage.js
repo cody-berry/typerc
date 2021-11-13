@@ -31,6 +31,16 @@ class Passage {
 
             /*  show the highlight box for correct vs incorrect after we type
              */
+            if (i < this.correctList.length) {
+                fill(90, 60, 60, 50)
+                if (this.correctList[i] === false) {
+                    fill(0, 100, 60, 50)
+                }
+                rect(leftMargin+i*textWidth(' '),
+                    topMargin,
+                    textWidth(c),
+                    textAscent() + 6)
+            }
 
 
             /*  draw current letter above the highlight box in terms of z-index
@@ -38,6 +48,8 @@ class Passage {
             // let's find the x position of our character
 
             // and we can finally draw it!
+            // after resetting our fill.
+            fill(0, 0, 100)
             text(c, x, y)
 
 

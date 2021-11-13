@@ -5,8 +5,8 @@
 version comments
 .   1-line passage, basic render of text
 .   start typing, getCurrentChar(), set incorrect/correct
-    cursor
-    highlight incorrect/correct, sounds
+.   cursor
+    highlight incorrect/correct
     text wrap
     word wrap
     box above current word
