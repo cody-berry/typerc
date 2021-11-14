@@ -21,7 +21,7 @@ class Passage {
         let y = topMargin + textAscent() // our text coordinates are on
         // the bottom-left, not the top-left
         // and luckily, that's our cursor!
-        let cursor = new p5.Vector(x, y)
+        let cursor = new p5.Vector(0, 0)
 
         /*  display the entire passage without text wrap
          */
@@ -36,10 +36,11 @@ class Passage {
                 if (this.correctList[i] === false) {
                     fill(0, 100, 60, 50)
                 }
-                rect(leftMargin+i*textWidth(' '),
-                    topMargin,
+                rect(x,
+                    y-textAscent(),
                     textWidth(c),
-                    textAscent() + 6)
+                    textAscent() + 6,
+                    3)
             }
 
 
@@ -59,11 +60,8 @@ class Passage {
              */
             cursor.x += textWidth(' ')
 
-            /*  let's do a simple word wrap, wrapping just by character!
+            /* below is a more advanced word wrap, wrapping by word
              */
-
-
-            // this is the horizontal coordinate where we must text wrap
 
             /*  if we're at a whitespace, determine if we need a new line:
                     find the next whitespace
@@ -72,8 +70,26 @@ class Passage {
                      limit, then newline
              */
 
-            // we can increment our x position
+
+            // we can increment our x position, after saving it to our
+            // cursor if we're at it
+            let save_x = x
+            let save_y = y
+            if (i === this.index) {
+                cursor = new p5.Vector(save_x, save_y)
+            }
             x += textWidth(' ') // our position is i spaces
+
+
+            // this is the horizontal coordinate where we must text wrap
+            let x_wrap = width - leftMargin
+
+            /*  let's do a simple word wrap, wrapping just by character!
+             */
+            if (x > x_wrap) {
+                x = leftMargin
+                y += textAscent() + textDescent() + 6
+            }
         }
 
         /*  add current word top highlight horizontal bar
@@ -91,8 +107,6 @@ class Passage {
 
         /*  add cursor below current character
         */
-        cursor.x = leftMargin + this.index*textWidth(' ')
-        cursor.y = topMargin + textAscent() + textDescent()
         rect(cursor.x, cursor.y, textWidth(' '), 3)
 
         // TODO check if we're finished, otherwise we try to read [index+1]

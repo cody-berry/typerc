@@ -6,7 +6,7 @@ version comments
 .   1-line passage, basic render of text
 .   start typing, getCurrentChar(), set incorrect/correct
 .   cursor
-    highlight incorrect/correct
+.   highlight incorrect/correct
     text wrap
     word wrap
     box above current word
@@ -38,7 +38,8 @@ function setup() {
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
 
-    passage = new Passage("Hello! My name is Cody Tian.")
+    passage = new Passage("Hello! My name is Cody Tian. Right now, I'm" +
+        " working on text wrap! I'm also the developer of the page.")
 }
 
 
