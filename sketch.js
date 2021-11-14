@@ -7,8 +7,8 @@ version comments
 .   start typing, getCurrentChar(), set incorrect/correct
 .   cursor
 .   highlight incorrect/correct
-    text wrap
-    word wrap
+.   text wrap
+.   word wrap
     box above current word
     WPM
     accuracy
@@ -39,7 +39,7 @@ function setup() {
     incorrectSound = loadSound('data/incorrect.wav')
 
     passage = new Passage("Hello! My name is Cody Tian. Right now, I'm" +
-        " working on text wrap! I'm also the developer of the page.")
+        " working on word wrap! I'm also the developer of the page.")
 }
 
 
@@ -47,8 +47,8 @@ function draw() {
     background(234, 34, 24)
 
     passage.render()
-    console.log(passage.text)
-    console.log(passage.correctList)
+    // console.log(passage.text)
+    // console.log(passage.correctList)
 }
 
 

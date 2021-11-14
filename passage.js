@@ -14,8 +14,8 @@ class Passage {
         fill(0, 0, 100)
 
         // the bottom left corner of the current letter we are typing = cursor
-        let leftMargin = 20
-        let topMargin = 20
+        const leftMargin = 20
+        const topMargin = 20
 
         let x = leftMargin
         let y = topMargin + textAscent() // our text coordinates are on
@@ -58,7 +58,7 @@ class Passage {
                 each highlight box should be 1 pixel bigger on left and right
                 1+1=2 total pixels of extra width
              */
-            cursor.x += textWidth(' ')
+            // cursor.x += textWidth(' ')
 
             /* below is a more advanced word wrap, wrapping by word
              */
@@ -69,6 +69,17 @@ class Passage {
                     if the width of that word + our cursor + current space >
                      limit, then newline
              */
+            if (c === ' ') {
+                let substringText = this.text.substring(this.index+1)
+                let nextWhitespaceIndex = substringText.indexOf(' ')
+                let currentWord = this.text.substring(this.index+1,
+                    nextWhitespaceIndex+1)
+                let widthOfWord = textWidth(currentWord)
+                if (widthOfWord + x + textWidth(' ') > width - leftMargin) {
+                    x = leftMargin
+                    y += textAscent() + textDescent() + 6
+                }
+            }
 
 
             // we can increment our x position, after saving it to our
@@ -76,20 +87,20 @@ class Passage {
             let save_x = x
             let save_y = y
             if (i === this.index) {
-                cursor = new p5.Vector(save_x, save_y)
+                cursor = new p5.Vector(save_x, save_y+6)
             }
             x += textWidth(' ') // our position is i spaces
 
 
             // this is the horizontal coordinate where we must text wrap
-            let x_wrap = width - leftMargin
+            // let x_wrap = width - leftMargin
 
             /*  let's do a simple word wrap, wrapping just by character!
              */
-            if (x > x_wrap) {
-                x = leftMargin
-                y += textAscent() + textDescent() + 6
-            }
+            // if (x > x_wrap) {
+            //     x = leftMargin
+            //     y += textAscent() + textDescent() + 6
+            // }
         }
 
         /*  add current word top highlight horizontal bar
