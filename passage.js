@@ -69,14 +69,21 @@ class Passage {
                     if the width of that word + our cursor + current space >
                      limit, then newline
              */
-            if (c === ' ') {
-                let substringText = this.text.substring(this.index+1)
-                let nextWhitespaceIndex = substringText.indexOf(' ')
-                let currentWord = this.text.substring(this.index+1,
+            // let i = this.index
+            if (this.text[i] === ' ') {
+                // console.log('space found!')
+                let restOfPassage = this.text.substring(i+1)
+                // console.log(restOfPassage)
+                let nextWhitespaceIndex = restOfPassage.indexOf(' ') + i
+                // console.log(nextWhitespaceIndex)
+                let currentWord = this.text.substring(i,
                     nextWhitespaceIndex+1)
+                console.log(currentWord)
                 let widthOfWord = textWidth(currentWord)
+                console.log(widthOfWord)
+                console.log(textWidth(' '))
                 if (widthOfWord + x + textWidth(' ') > width - leftMargin) {
-                    x = leftMargin
+                    x = leftMargin-textWidth(' ')
                     y += textAscent() + textDescent() + 6
                 }
             }
