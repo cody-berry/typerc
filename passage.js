@@ -22,6 +22,8 @@ class Passage {
         // the bottom-left, not the top-left
         // and luckily, that's our cursor!
         let cursor = new p5.Vector(0, 0)
+        // we'll need to save all of the positions here.
+        let positions = []
 
         /*  display the entire passage without text wrap
          */
@@ -78,10 +80,10 @@ class Passage {
                 // console.log(nextWhitespaceIndex)
                 let currentWord = this.text.substring(i,
                     nextWhitespaceIndex+1)
-                console.log(currentWord)
+                // console.log(currentWord)
                 let widthOfWord = textWidth(currentWord)
-                console.log(widthOfWord)
-                console.log(textWidth(' '))
+                // console.log(widthOfWord)
+                // console.log(textWidth(' '))
                 if (widthOfWord + x + textWidth(' ') > width - leftMargin) {
                     x = leftMargin-textWidth(' ')
                     y += textAscent() + textDescent() + 6
@@ -96,6 +98,8 @@ class Passage {
             if (i === this.index) {
                 cursor = new p5.Vector(save_x, save_y+6)
             }
+            // also, we need to append our saves to our position list
+            positions.push(new p5.Vector(save_x, save_y))
             x += textWidth(' ') // our position is i spaces
 
 
@@ -115,16 +119,41 @@ class Passage {
         // find index of next and previous whitespace chars
 
         // next delimiter index
-
+        let restOfPassage = this.text.substring(this.index)
+        let nextWhitespaceIndex = restOfPassage.indexOf(' ') + this.index
         // previous delimiter index
+        let passedPassage = this.text.substring(0, this.index)
+        let previousWhitespaceIndex = 0
+        for (let i = 0; i < passedPassage.length; i++) {
+            if (passedPassage[i] === ' ') {
+                previousWhitespaceIndex = i+1
+            }
+        }
+        // console.log(previousWhitespaceIndex)
+        // console.log(nextWhitespaceIndex)
+
+        // see where our positions list comes in handy? We can access our
+        // positions without doing much work anymore!
+        let nextWhitespacePos = positions[nextWhitespaceIndex]
+        let previousWhitespacePos = positions[previousWhitespaceIndex]
 
         // +1 because we don't want the line to go over the previous
         // whitespace char
 
+        // let's finally draw our horizontal bar!
+        stroke(0, 0, 50)
+        line(previousWhitespacePos.x, previousWhitespacePos.y-textAscent()-3,
+            nextWhitespacePos.x, nextWhitespacePos.y-textAscent()-3)
+        // we can also draw bracket lines
+        line(previousWhitespacePos.x, previousWhitespacePos.y-textAscent()-1,
+            previousWhitespacePos.x, previousWhitespacePos.y-textAscent()-3)
+        line(nextWhitespacePos.x, nextWhitespacePos.y-textAscent()-3,
+            nextWhitespacePos.x, nextWhitespacePos.y-textAscent()-1)
 
 
         /*  add cursor below current character
         */
+        stroke(0, 0, 0)
         rect(cursor.x, cursor.y, textWidth(' '), 3)
 
         // TODO check if we're finished, otherwise we try to read [index+1]
