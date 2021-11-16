@@ -38,7 +38,11 @@ function setup() {
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
 
-    passage = new Passage("Hello! My name is Cody Tian. ")
+    // passage = new Passage("Hello! My name is Cody Tian. Right now, I'm" +
+    //     " working on creating WPM! It's a special feature in TypingClub that" +
+    //     " uses the amount of time spent. It is also changed by a toggle" +
+    //     " button that indicates it is paused/resumed. ")
+    passage = new Passage("Today is November 16th, 2021.")
 }
 
 

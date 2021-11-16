@@ -7,6 +7,7 @@ class Passage {
         this.text = text
         this.index = 0 // where in the passage we're currently typing
         this.correctList = [] // booleans recording character correctness
+        this.playing = false
     }
 
 
@@ -72,6 +73,7 @@ class Passage {
                      limit, then newline
              */
             // let i = this.index
+            let wrapped = false
             if (this.text[i] === ' ') {
                 // console.log('space found!')
                 let restOfPassage = this.text.substring(i+1)
@@ -85,8 +87,7 @@ class Passage {
                 // console.log(widthOfWord)
                 // console.log(textWidth(' '))
                 if (widthOfWord + x + textWidth(' ') > width - leftMargin) {
-                    x = leftMargin-textWidth(' ')
-                    y += textAscent() + textDescent() + 6
+                    wrapped = true
                 }
             }
 
@@ -100,6 +101,10 @@ class Passage {
             }
             // also, we need to append our saves to our position list
             positions.push(new p5.Vector(save_x, save_y))
+            if (wrapped) {
+                x = 0
+                y += textAscent() + textDescent() + 6
+            }
             x += textWidth(' ') // our position is i spaces
 
 
@@ -157,7 +162,16 @@ class Passage {
         rect(cursor.x, cursor.y, textWidth(' '), 3)
 
         // TODO check if we're finished, otherwise we try to read [index+1]
-        
+
+        // let's add WPM! The first step is finding the milliseconds passed.
+        let ms = millis()
+        text(millis, 0, height)
+        // closest to the given number, in this case, millis()
+        // how many words have we typed? Let's assume that the length of a
+        // word is 5 characters.
+        text(this.index/5, 100, height)
+        // what is the number of seconds that has elapsed?
+        let seconds = ms*1000
     }
 
 
