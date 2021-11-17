@@ -165,13 +165,18 @@ class Passage {
 
         // let's add WPM! The first step is finding the milliseconds passed.
         let ms = millis()
-        text(millis, 0, height)
+        // text(ms, 0, height)
         // closest to the given number, in this case, millis()
         // how many words have we typed? Let's assume that the length of a
         // word is 5 characters.
-        text(this.index/5, 100, height)
-        // what is the number of seconds that has elapsed?
-        let seconds = ms*1000
+        let words = this.index/5
+        // text(words, 100, height)
+        // what is the number of minutes that has elapsed?
+        let minutes = ms/60000
+        // text(minutes, 200, height)
+        // so how many words have we typed per minute?
+        let WPM = round(words/minutes)
+        text(WPM + 'wpm', width-textWidth(str(WPM) + 'wpm'), height)
     }
 
 
