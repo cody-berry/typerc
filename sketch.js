@@ -2,8 +2,35 @@
 @author Cody
 @date 2021-11-23
 
-
-
+features
+    display one line                  this.text, character
+        currentCharPos p5.Vector
+    correct / incorrect with sounds   highlight method: this.index,
+                                      increment index
+    current typing cursor             use this.index and positions
+    text wrap                         if the current x is greater than a
+                                      wrapping bound, set x back to the left
+                                      margin
+    word wrap                         if the current character is a space,
+                                      check the next delimiter index and if
+                                      it is farther than the same wrapping
+                                      bound, set x back to the left margin
+    highlight bar for each word       find the previous delimiter index,
+                                      next, and draw a line over the positions
+    WPM                               find minutes by milliseconds and words
+                                      by this.index
+    accuracy                          take the number of corrects and divide
+                                      it by our index and multiply by 100 to
+                                      get the percentage. Then, round.
+    WPM for each word typed           Make timestamps for every space typed,
+                                      then iterate through each and do the
+                                      same process to find the WPM for that word
+    stars based on WPM for each word  set stars for word, then draw the
+                                      number of stars earned
+    special screen                    have score equal pounds of mead
+                                      fermented from the stars, and subtract
+                                      from the score the amount of given
+                                      rainwater left
  */
 
 let font
