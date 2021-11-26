@@ -45,8 +45,12 @@ class Passage {
             // to word wrap.
             // if our current x is greater than our width minus our left
             // margin...
-            // ...we set our wrap to true. This is going to be useful when
-            // saving positions.
+            let wrap = false
+            if (x + textWidth(c) > width - leftMargin) {
+                // ...we set our wrap to true. This is going to be useful when
+                // saving positions.
+                wrap = true
+            }
 
             // word wrap!
             // if our current letter is a space...
@@ -69,6 +73,12 @@ class Passage {
             // we add our position to our positions list (pos).
             pos.push(new p5.Vector(x, y))
             x += textWidth(c)
+            // but what if our wrap is true? we set our x to our left margin
+            // and increment our y such that things don't overlap.
+            if (wrap) {
+                x = leftMargin
+                y += textAscent() + textDescent() + 5
+            }
         }
 
 

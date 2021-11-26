@@ -59,7 +59,8 @@ function setup() {
 
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
-    passage = new Passage("Hi! My name is Cody Tian.")
+    passage = new Passage("Hi! My name is Cody Tian. I just finished text" +
+        " wrap! Let's see if it works.")
 }
 
 
