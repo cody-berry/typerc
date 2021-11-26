@@ -25,7 +25,21 @@ class Passage {
             // what is our current character?
             let c = this.text[i]
             // now let's display it!
+            // first, we need to reset our color.
+            fill(0, 0, 100)
             text(c, x, y)
+
+            // if our i is less than our index, we should highlight.
+            if (i < this.index) {
+                // then, we can fill a greenish color, but if we get it
+                // wrong, we fill with a reddish color.
+                fill(100, 50, 50, 50)
+                if (this.correctList[i] === false) {
+                    fill(343, 50, 50, 50)
+                }
+                rect(x, y-textAscent()-2, textWidth(c), textAscent() + textDescent() + 4, 3)
+            }
+
             // below is a text wrap that will be commented out after we get
             // to word wrap.
             // if our current x is greater than our width minus our left

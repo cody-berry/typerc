@@ -8,6 +8,9 @@ features
         currentCharPos p5.Vector
     correct / incorrect with sounds
         highlight method: this.index, increment index
+    highlight correct / incorrect
+        loop through corrects and incorrects, and highlight them based on
+        their value
     current typing cursor
         use this.index and positions
     text wrap
