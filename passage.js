@@ -46,24 +46,31 @@ class Passage {
             // if our current x is greater than our width minus our left
             // margin...
             let wrap = false
-            if (x + textWidth(c) > width - leftMargin) {
-                // ...we set our wrap to true. This is going to be useful when
-                // saving positions.
-                wrap = true
-            }
+            // if (x + textWidth(c) > width - leftMargin) {
+            //     // ...we set our wrap to true. This is going to be useful when
+            //     // saving positions.
+            //     wrap = true
+            // }
 
             // word wrap!
             // if our current letter is a space...
-            // ...we need to find the next delimiter index using the
-            // rest of the passage...
+            if (c === ' ') {
+                // ...we need to find the next delimiter index using the
+                // rest of the passage...
+                let restOfPassage = this.text.substring(i + 1)
+                let nextSpace = restOfPassage.indexOf(' ') + i + 1
+                console.log(nextSpace)
+                // ...and then the current word...
+                let currentWord = this.text.substring(i + 1, nextSpace)
+                // ... and if the text length of the current word plus our
+                // current x plus a text width is greater than our x wrap...
+                if (x + textWidth(' ') + textWidth(currentWord) > width - leftMargin) {
+                    // ...again, we set our wrap to true.
+                    wrap = true
+                }
+            }
 
 
-            // ...and then the current word...
-
-            // ... and if the text length of the current word plus our
-            // current x plus a text width is greater than our x wrap...
-
-            // ...again, we set our wrap to true.
 
 
             // now that we've did our business with wraps, we can now save
