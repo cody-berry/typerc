@@ -18,6 +18,7 @@ class Passage {
         // positions here
         let x = leftMargin
         let y = topMargin
+        let pos = []
 
         fill(0, 0, 100)
         // let's iterate through all of our characters!
@@ -64,6 +65,9 @@ class Passage {
             // now that we've did our business with wraps, we can now save
             // our position and increment our x, but if wrap is set to true,
             // we need to wrap instead
+
+            // we add our position to our positions list (pos).
+            pos.push(new p5.Vector(x, y))
             x += textWidth(c)
         }
 
@@ -81,6 +85,9 @@ class Passage {
         // let's do our cursor!
         // find the position of the character we're on, then find text width
         // of current character
+        let char_pos = pos[this.index]
+        let text_width = textWidth(this.text[this.index])
+        rect(char_pos.x, char_pos.y+6, text_width, -3)
     }
 
     // sets our current character to incorrect
