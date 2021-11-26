@@ -4,6 +4,8 @@ class Passage {
         this.text = text
         // this.index here
         this.index = 0
+        // what is teh correct information?
+        this.correctList = []
     }
 
     // renders our text
@@ -69,10 +71,21 @@ class Passage {
 
     // sets our current character to incorrect
     setIncorrect() {
-
+        // our index needs to be incremented and also we have a correct list
+        // and we append a false to it because we got it incorrect.
+        this.index += 1
+        this.correctList.push(false)
     }
     // sets our current character to correct
     setCorrect() {
-
+        // our index needs to be incremented (no block on errors yet) and
+        // also we have a correct list and we append a true to it because
+        // we got it correct.
+        this.index += 1
+        this.correctList.push(true)
+    }
+    // gets our current char
+    getCurrentChar() {
+        return this.text[this.index]
     }
 }

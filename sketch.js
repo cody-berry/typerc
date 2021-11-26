@@ -65,3 +65,24 @@ function draw() {
 
     passage.render()
 }
+
+function keyPressed() {
+    // don't do anything unless we find a shift, alt, control, or capslock
+    if (keyCode === SHIFT ||
+        keyCode === ALT ||
+        keyCode === CONTROL ||
+        keyCode === TAB ||
+        keyCode === 20) {
+        return
+    }
+    // Now what to do? We should check if our key is the same as the correct
+    // key.
+    if (key === passage.getCurrentChar()) {
+        passage.setCorrect()
+        correctSound.play()
+    }
+    else {
+        passage.setIncorrect()
+        incorrectSound.play()
+    }
+}
