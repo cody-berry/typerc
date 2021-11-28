@@ -59,7 +59,7 @@ class Passage {
                 // rest of the passage...
                 let restOfPassage = this.text.substring(i + 1)
                 let nextSpace = restOfPassage.indexOf(' ') + i + 1
-                console.log(nextSpace)
+                // console.log(nextSpace)
                 // ...and then the current word...
                 let currentWord = this.text.substring(i + 1, nextSpace)
                 // ... and if the text length of the current word plus our
@@ -90,15 +90,36 @@ class Passage {
 
 
         // let's do our highlight bars!
+        let alreadyPassedPassage = this.text.substring(0, this.index)
+        let restOfPassage = this.text.substring(this.index)
         // find the previous delimiter index
-
+        let previousDelimiterIndex = -1
+        for (let i = 0; i < alreadyPassedPassage.length; i++) {
+            if (this.text[i] === ' ') {
+                previousDelimiterIndex = i
+            }
+        }
         // find the next delimiter index
-
+        let nextDelimiterIndex = restOfPassage.indexOf(' ')+this.index
+        // console.log(previousDelimiterIndex)
+        // console.log(nextDelimiterIndex)
         // find the positions using the position list
+        let previousDelimiterIndexPos = pos[previousDelimiterIndex+1]
+        let nextDelimiterIndexPos = pos[nextDelimiterIndex]
 
         // let's draw at least the line above
+        stroke(0, 0, 100)
+        strokeWeight(2)
+        line(previousDelimiterIndexPos.x, previousDelimiterIndexPos.y-6-textAscent(),
+            nextDelimiterIndexPos.x, nextDelimiterIndexPos.y-6-textAscent())
+        // console.log(previousDelimiterIndexPos.x)
+        // console.log(previousDelimiterIndexPos.y-6-textAscent())
+        // console.log(nextDelimiterIndexPos.x)
+        // console.log(nextDelimiterIndexPos.y-6-textAscent())
         // now we can draw the sides
 
+        stroke(0, 0, 0)
+        strokeWeight(1)
         // let's do our cursor!
         // find the position of the character we're on, then find text width
         // of current character
