@@ -4,8 +4,9 @@ class Passage {
         this.text = text
         // this.index here
         this.index = 0
-        // what is teh correct information?
+        // what is the correct information?
         this.correctList = []
+        // what is 
     }
 
     // renders our text
@@ -19,6 +20,9 @@ class Passage {
         let x = leftMargin
         let y = topMargin
         let pos = []
+        // let's keep track of our space timestamp index so that we don't
+        // have to go through a loop to figure out what space timestamp
+        // we're on.
 
         fill(0, 0, 100)
         // let's iterate through all of our characters!
@@ -38,7 +42,7 @@ class Passage {
                 if (this.correctList[i] === false) {
                     fill(343, 50, 50, 50)
                 }
-                rect(x, y-textAscent()-2, textWidth(c), textAscent() + textDescent() + 4, 3)
+                rect(x, y - textAscent() - 2, textWidth(c), textAscent() + textDescent() + 4, 3)
             }
 
             // below is a text wrap that will be commented out after we get
@@ -71,8 +75,6 @@ class Passage {
             }
 
 
-
-
             // now that we've did our business with wraps, we can now save
             // our position and increment our x, but if wrap is set to true,
             // we need to wrap instead
@@ -85,6 +87,36 @@ class Passage {
             if (wrap) {
                 x = leftMargin
                 y += textAscent() + textDescent() + 5
+            }
+            // if our current i is less than our current index and that i is
+            // a space...
+            {
+                // then, we can access the corresponding space timestamp and
+                // do the same WPM process we did at the end of this function
+                // figure out the number of milliseconds
+                // wait, there's a whole other function called seconds that
+                // we can use to find the seconds! Sadly, it just is the
+                // simple second with no decimal.
+                let ms = millis()
+                // text(round(ms), 0, height)
+                // then seconds
+                let s = ms/1000
+                // text(s, 0, height)
+                // then minutes
+                let m = s/60
+                // text(m, 0, height)
+                // then find words using number of characters divided by 5
+                let w = this.index/5
+                // text(w, 0, height)
+                // then takes words over minutes to find words per minute
+                let wpm = w/m
+                text(round(wpm), width-textWidth(round(wpm)), height)
+                // access the already-made position of this character and
+                // then draw text above it saying the wpm in a different
+                // font. for the stars, just draw a number of stars based on
+                // the wpm. the next redo will make it so that it has bounds
+                // for the number of stars depending on the difficulty of
+                // the word. This probably requires a dictionary.
             }
         }
 
@@ -100,18 +132,18 @@ class Passage {
             }
         }
         // find the next delimiter index
-        let nextDelimiterIndex = restOfPassage.indexOf(' ')+this.index
+        let nextDelimiterIndex = restOfPassage.indexOf(' ') + this.index
         // console.log(previousDelimiterIndex)
         // console.log(nextDelimiterIndex)
         // find the positions using the position list
-        let previousDelimiterIndexPos = pos[previousDelimiterIndex+1]
+        let previousDelimiterIndexPos = pos[previousDelimiterIndex + 1]
         let nextDelimiterIndexPos = pos[nextDelimiterIndex]
 
         // let's draw at least the line above
         stroke(0, 0, 100)
         strokeWeight(2)
-        line(previousDelimiterIndexPos.x, previousDelimiterIndexPos.y-6-textAscent(),
-            nextDelimiterIndexPos.x, nextDelimiterIndexPos.y-6-textAscent())
+        line(previousDelimiterIndexPos.x, previousDelimiterIndexPos.y - 6 - textAscent(),
+            nextDelimiterIndexPos.x, nextDelimiterIndexPos.y - 6 - textAscent())
         // console.log(previousDelimiterIndexPos.x)
         // console.log(previousDelimiterIndexPos.y-6-textAscent())
         // console.log(nextDelimiterIndexPos.x)
@@ -125,7 +157,39 @@ class Passage {
         // of current character
         let char_pos = pos[this.index]
         let text_width = textWidth(this.text[this.index])
-        rect(char_pos.x, char_pos.y+6, text_width, -3)
+        rect(char_pos.x, char_pos.y + 6, text_width, -3)
+        // let's find our WPM!
+        // wait, there's a whole other function called seconds that
+        // we can use to find the seconds! Sadly, it just is the
+        // simple second with no decimal.
+        let ms = millis()
+        // text(round(ms), 0, height)
+        // then seconds
+        let s = ms/1000
+        // text(s, 0, height)
+        // then minutes
+        let m = s/60
+        // text(m, 0, height)
+        // then find words using number of characters divided by 5
+        let w = this.index/5
+        // text(w, 0, height)
+        // then takes words over minutes to find words per minute
+        let wpm = w/m
+        text(round(wpm), width-textWidth(round(wpm)), height)
+        // so what about saving timestamps for every space that we type?
+
+        // if our current character is a space or this is the first character...
+        if (text[this.index] === ' ' || millis() === 0) {
+            if (millis() === 0) {
+                this.spaceTimestamps
+            }
+            // ...and if this is the first time we've visited this character...
+            if () {
+                // we can save a space timestamp with a list with the first
+                // element being the number of milliseconds and the second
+                // one being the index
+            }
+        }
     }
 
     // sets our current character to incorrect

@@ -59,8 +59,8 @@ function setup() {
 
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
-    passage = new Passage("Hi! My name is Cody Tian. I just finished my" +
-        " highlight bar! Let's see if it works. ")
+    passage = new Passage("Hi! My name is Cody Tian. I just finished my WPM!" +
+        " Let's see if it works. ")
 }
 
 
