@@ -6,7 +6,7 @@ class Passage {
         this.index = 0
         // what is the correct information?
         this.correctList = []
-        // what is 
+        // what is
     }
 
     // renders our text
@@ -116,7 +116,26 @@ class Passage {
                 // font. for the stars, just draw a number of stars based on
                 // the wpm. the next redo will make it so that it has bounds
                 // for the number of stars depending on the difficulty of
-                // the word. This probably requires a dictionary.
+                // the word. This probably requires a dictionary. After
+                // that, we can assign values for bad, ok, good, great,
+                // amazing, wow!, Wow!!, and WOW!!!
+
+                // bad should be 10wpm, if less, then level fails
+
+                // ok should be 20wpm
+
+                // good should be 50wpm
+
+                // great should be 60wpm
+
+                // amazing should be 70wpm
+
+                // one star should be 80wpm, also wow!
+
+                // two stars should be 90wpm, also Wow!!
+
+                // three stars should be 100wpm, also WOW!!!
+
             }
         }
 
@@ -181,13 +200,19 @@ class Passage {
         // if our current character is a space or this is the first character...
         if (text[this.index] === ' ' || millis() === 0) {
             if (millis() === 0) {
-                this.spaceTimestamps
+                // this.spaceTimestamps
             }
-            // ...and if this is the first time we've visited this character...
-            if () {
-                // we can save a space timestamp with a list with the first
-                // element being the number of milliseconds and the second
-                // one being the index
+            // otherwise, we can find the last space timestamp.
+            // if the second element of the last space timestamp is our
+            // current index, just don't go through this loop, otherwise do.
+            {
+                // ...and if this is the first time we've visited this
+                // character...
+                {
+                    // we can save a space timestamp with a list with the first
+                    // element being the number of milliseconds and the second
+                    // one being the index
+                }
             }
         }
     }
