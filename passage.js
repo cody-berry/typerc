@@ -6,7 +6,9 @@ class Passage {
         this.index = 0
         // what is the correct information?
         this.correctList = []
-        // what is
+        // what is our space timestamp list? it keeps track of timestamps
+        // for when we reach a space
+        this.spaceTimestamps = []
     }
 
     // renders our text
@@ -198,23 +200,30 @@ class Passage {
         // so what about saving timestamps for every space that we type?
 
         // if our current character is a space or this is the first character...
-        if (text[this.index] === ' ' || millis() === 0) {
-            if (millis() === 0) {
-                // this.spaceTimestamps
-            }
+        if (this.text[this.index] === ' ') {
             // otherwise, we can find the last space timestamp.
             // if the second element of the last space timestamp is our
             // current index, just don't go through this loop, otherwise do.
-            {
-                // ...and if this is the first time we've visited this
-                // character...
-                {
-                    // we can save a space timestamp with a list with the first
-                    // element being the number of milliseconds and the second
-                    // one being the index
-                }
+            let lastTimestamp = this.spaceTimestamps[this.spaceTimestamps.length - 1]
+            if (lastTimestamp[1] !== this.index){
+                // we can save a space timestamp with a list with the first
+                // element being the number of milliseconds and the second
+                // one being the index
+                this.spaceTimestamps.push([round(millis()), this.index])
             }
         }
+        if (this.index === 0) {
+            // console.log(this.spaceTimestamps.length)
+            if (this.spaceTimestamps.length === 0) {
+                this.spaceTimestamps.push([round(millis()), this.index])
+            }
+        }
+        // below is for testing
+        fill(0, 0, 100)
+        textSize(10)
+        text(this.spaceTimestamps, 0, height-20)
+        textSize(30)
+        // console.log(this.spaceTimestamps)
     }
 
     // sets our current character to incorrect
