@@ -9,8 +9,8 @@ features
     correct / incorrect with sounds
         highlight method: this.index, increment index
     highlight correct / incorrect
-        loop through corrects and incorrects, and highlight them based on
-        their value
+        loop through correct characters and incorrect characters, and
+        highlight them based on their value
     current typing cursor
         use this.index and positions
     text wrap
@@ -59,8 +59,11 @@ function setup() {
 
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
-    passage = new Passage("Hi! My name is Cody Tian. I just finished my WPM!" +
-        " Let's see if it works. ")
+    passage = new Passage("Hi! My name is Cody Tian. The width and height of" +
+        " my star image is just 1 all over the place. How can I fix it? I" +
+        " just" +
+        " finished my WPM!" +
+        " Let's see if it works. Huh, the stars display as just 🌟s.")
 }
 
 
