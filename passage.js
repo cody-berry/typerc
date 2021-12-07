@@ -1,5 +1,5 @@
 class Passage {
-    constructor(text) {
+    constructor(text, star) {
         // this.text here
         this.text = text
         // this.index here
@@ -10,7 +10,7 @@ class Passage {
         // for when we reach a space
         this.spaceTimestamps = []
 
-        this.star = loadImage('data/star.png')
+        this.star = star
     }
 
     // renders our text
@@ -122,7 +122,7 @@ class Passage {
                 // then draw text above it saying the wpm in a different
                 // font.
                 textSize(8)
-                let position = pos[space[1]+1]
+                let position = new p5.Vector(x, y)
                 stroke(0, 0, 100)
                 fill(0, 0, 100)
                 // let roundedWPM = str(round(wpm))
@@ -137,8 +137,8 @@ class Passage {
                 // amazing, wow!, Wow!!, and WOW!!!
 
                 let roundedWPM
-                let image_star_indices
-                image(this.star, 0, 0)
+                let image_star_indices = []
+                // image(this.star, 0, 0)
 
                 // bad should be 20wpm
                 if (wpm < 20) {
@@ -163,27 +163,33 @@ class Passage {
                 }
                 // one star should be 90wpm, also wow!
                 else if (wpm < 90) {
-                    roundedWPM = str(round(wpm))+' 🌟 wow!'
+                    roundedWPM = str(round(wpm))+'   wow!'
+                    image_star_indices = [str(round(wpm)).length+2]
 
                 }
                 // two stars should be 100wpm, also Wow!!
                 else if (wpm < 100) {
-                    roundedWPM = str(round(wpm))+' 🌟🌟 Wow!!'
+                    roundedWPM = str(round(wpm))+'    Wow!!'
+                    image_star_indices = [str(round(wpm)).length+2, str(round(wpm)).length+2]
                 }
                 // three stars should be above 100wpm, also WOW!!!
                 else {
-                    roundedWPM = str(round(wpm))+' 🌟🌟🌟 WOW!!!'
+                    roundedWPM = str(round(wpm))+'     WOW!!!'
+                    image_star_indices = [str(round(wpm)).length+2, str(round(wpm)).length+2, str(round(wpm)).length+2]
                 }
 
-                console.log(position)
+                text(position.x, 0, height)
                 text(roundedWPM, position.x, position.y)
+                for (let star_index in image_star_indices) {
+                    image(this.star, position.x+textWidth(' ')*star_index, position.y)
+                }
                 textSize(30)
                 stroke(0, 0, 0)
                 // now we can increment our space timestamp index
                 spaceTimestampIndex++
             }
         }
-        console.log(pos)
+        // console.log(pos)
 
 
         // let's do our highlight bars!

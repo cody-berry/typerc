@@ -45,10 +45,12 @@ let font
 let passage
 let correctSound // audio cue for typing one char correctly
 let incorrectSound // audio cue for typing one char incorrectly
+let star
 
 
 function preload() {
     font = loadFont('data/lucida-console.ttf')
+    star = loadImage('data/star.png');
 }
 
 
@@ -59,11 +61,12 @@ function setup() {
 
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
+    star.resize(8, 8)
     passage = new Passage("Hi! My name is Cody Tian. The width and height of" +
         " my star image is just 1 all over the place. How can I fix it? I" +
         " just" +
         " finished my WPM!" +
-        " Let's see if it works. Huh, the stars display as just 🌟s.")
+        " Let's see if it works. Huh, the stars display as just 🌟s. ", star)
 }
 
 
