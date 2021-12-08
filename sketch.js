@@ -62,9 +62,9 @@ function setup() {
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
     star.resize(8, 8)
-    passage = new Passage("Hi! Cody just finished my stars for my WPM! Cody also" +
+    passage = new Passage("Hi! I just finished my stars for my WPM! I also" +
         " repositioned them to the beginning of the word. Sadly, Cody repeated" +
-        " the code Cody used for the highlight bar. ", star)
+        " the code I used for the highlight bar. ", star)
 }
 
 

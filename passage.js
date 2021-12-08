@@ -95,7 +95,7 @@ class Passage {
             }
             // if our current i is less than our current index and that i is
             // a space...
-            if (spaceTimestampIndex+1 < this.spaceTimestamps.length && this.text[i] === ' ') {
+            if (i < this.index && this.text[i] === ' ') {
                 // then, we can access the corresponding space timestamp and
                 // do the same WPM process we did at the end of this function
                 let space = this.spaceTimestamps[spaceTimestampIndex]
@@ -121,80 +121,86 @@ class Passage {
                 // access the already-made position of this character and
                 // then draw text above it saying the wpm in a different
                 // font.
-                textSize(8)
+                // textSize(8)
                 let alreadyPassedPassage = this.text.substring(0, i)
+                let restOfPassage = this.text.substring(i)
                 // find the previous delimiter index
                 let previousDelimiterIndex = -1
-                for (let j = 0; j < alreadyPassedPassage.length; j++) {
-                    if (this.text[j] === ' ') {
-                        previousDelimiterIndex = j
+                for (let i = 0; i < alreadyPassedPassage.length; i++) {
+                    if (this.text[i] === ' ') {
+                        previousDelimiterIndex = i
                     }
                 }
+                // find the next delimiter index
+                let nextDelimiterIndex = restOfPassage.indexOf(' ') + i
                 previousDelimiterIndex++
-                let position = pos[previousDelimiterIndex]
-                stroke(0, 0, 100)
-                fill(0, 0, 100)
-                // let roundedWPM = str(round(wpm))
-                // text(round(wpm), position.x, position.y-textAscent()-textDescent()-20)
-                // textSize(30)
-                // stroke(0, 0, 0)
-                // for the stars, just draw a number of stars based on
-                // the wpm. the next redo will make it so that it has bounds
-                // for the number of stars depending on the difficulty of
-                // the word. This probably requires a dictionary. After
-                // that, we can assign values for bad, ok, good, great,
-                // amazing, wow!, Wow!!, and WOW!!!
+                if (nextDelimiterIndex - previousDelimiterIndex > 2) {
+                    textSize(8)
+                    let position = pos[previousDelimiterIndex]
+                    stroke(0, 0, 100)
+                    fill(0, 0, 100)
+                    // let roundedWPM = str(round(wpm))
+                    // text(round(wpm), position.x, position.y-textAscent()-textDescent()-20)
+                    // textSize(30)
+                    // stroke(0, 0, 0)
+                    // for the stars, just draw a number of stars based on
+                    // the wpm. the next redo will make it so that it has bounds
+                    // for the number of stars depending on the difficulty of
+                    // the word. This probably requires a dictionary. After
+                    // that, we can assign values for bad, ok, good, great,
+                    // amazing, wow!, Wow!!, and WOW!!!
 
-                let roundedWPM
-                let image_star_indices = []
-                // image(this.star, 0, 0)
+                    let roundedWPM
+                    let image_star_indices = []
+                    // image(this.star, 0, 0)
 
-                // bad should be 20wpm
-                if (wpm < 20) {
-                    roundedWPM = str(round(wpm))+' bad'
-                }
+                    // bad should be 20wpm
+                    if (wpm < 20) {
+                        roundedWPM = str(round(wpm)) + ' bad'
+                    }
 
-                // ok should be 50wpm
-                else if (wpm < 50) {
-                    roundedWPM = str(round(wpm))+' ok'
-                }
-                // good should be 60wpm
-                else if (wpm < 60) {
-                    roundedWPM = str(round(wpm))+' good!'
-                }
-                // great should be 70wpm
-                else if (wpm < 70) {
-                    roundedWPM = str(round(wpm))+' great!'
-                }
-                // amazing should be 80wpm
-                else if (wpm < 80) {
-                    roundedWPM = str(round(wpm))+' awesome!'
-                }
-                // one star should be 90wpm, also wow!
-                else if (wpm < 90) {
-                    roundedWPM = str(round(wpm))+'   wow!'
-                    image_star_indices = [str(round(wpm)).length+2]
+                    // ok should be 50wpm
+                    else if (wpm < 50) {
+                        roundedWPM = str(round(wpm)) + ' ok'
+                    }
+                    // good should be 60wpm
+                    else if (wpm < 60) {
+                        roundedWPM = str(round(wpm)) + ' good!'
+                    }
+                    // great should be 70wpm
+                    else if (wpm < 70) {
+                        roundedWPM = str(round(wpm)) + ' great!'
+                    }
+                    // amazing should be 80wpm
+                    else if (wpm < 80) {
+                        roundedWPM = str(round(wpm)) + ' awesome!'
+                    }
+                    // one star should be 90wpm, also wow!
+                    else if (wpm < 90) {
+                        roundedWPM = str(round(wpm)) + '   wow!'
+                        image_star_indices = [str(round(wpm)).length + 2]
 
+                    }
+                    // two stars should be 100wpm, also Wow!!
+                    else if (wpm < 100) {
+                        roundedWPM = str(round(wpm)) + '    Wow!!'
+                        image_star_indices = [str(round(wpm)).length + 2, str(round(wpm)).length + 2]
+                    }
+                    // three stars should be above 100wpm, also WOW!!!
+                    else {
+                        roundedWPM = str(round(wpm)) + '     WOW!!!'
+                        image_star_indices = [str(round(wpm)).length + 2, str(round(wpm)).length + 2, str(round(wpm)).length + 2]
+                    }
+                    // now we can make our text!
+                    text(roundedWPM, position.x, position.y - textAscent() - textDescent() - 25)
+                    for (let star_index of image_star_indices) {
+                        image(this.star, position.x + textWidth(' ') * star_index, position.y - 31 - textAscent() - textDescent())
+                    }
+                    textSize(30)
+                    stroke(0, 0, 0)
+                    // now we can increment our space timestamp index
+                    spaceTimestampIndex++
                 }
-                // two stars should be 100wpm, also Wow!!
-                else if (wpm < 100) {
-                    roundedWPM = str(round(wpm))+'    Wow!!'
-                    image_star_indices = [str(round(wpm)).length+2, str(round(wpm)).length+2]
-                }
-                // three stars should be above 100wpm, also WOW!!!
-                else {
-                    roundedWPM = str(round(wpm))+'     WOW!!!'
-                    image_star_indices = [str(round(wpm)).length+2, str(round(wpm)).length+2, str(round(wpm)).length+2]
-                }
-                // now we can make our text!
-                text(roundedWPM, position.x, position.y-textAscent()-textDescent()-25)
-                for (let star_index of image_star_indices) {
-                    image(this.star, position.x+textWidth(' ')*star_index, position.y-31-textAscent()-textDescent())
-                }
-                textSize(30)
-                stroke(0, 0, 0)
-                // now we can increment our space timestamp index
-                spaceTimestampIndex++
             }
         }
         // console.log(pos)
