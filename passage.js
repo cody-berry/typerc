@@ -122,7 +122,16 @@ class Passage {
                 // then draw text above it saying the wpm in a different
                 // font.
                 textSize(8)
-                let position = new p5.Vector(x, y)
+                let alreadyPassedPassage = this.text.substring(0, i)
+                // find the previous delimiter index
+                let previousDelimiterIndex = -1
+                for (let j = 0; j < alreadyPassedPassage.length; j++) {
+                    if (this.text[j] === ' ') {
+                        previousDelimiterIndex = j
+                    }
+                }
+                previousDelimiterIndex++
+                let position = pos[previousDelimiterIndex]
                 stroke(0, 0, 100)
                 fill(0, 0, 100)
                 // let roundedWPM = str(round(wpm))
@@ -177,11 +186,10 @@ class Passage {
                     roundedWPM = str(round(wpm))+'     WOW!!!'
                     image_star_indices = [str(round(wpm)).length+2, str(round(wpm)).length+2, str(round(wpm)).length+2]
                 }
-
-                text(position.x, 0, height)
-                text(roundedWPM, position.x, position.y)
-                for (let star_index in image_star_indices) {
-                    image(this.star, position.x+textWidth(' ')*star_index, position.y)
+                // now we can make our text!
+                text(roundedWPM, position.x, position.y-textAscent()-textDescent()-25)
+                for (let star_index of image_star_indices) {
+                    image(this.star, position.x+textWidth(' ')*star_index, position.y-31-textAscent()-textDescent())
                 }
                 textSize(30)
                 stroke(0, 0, 0)

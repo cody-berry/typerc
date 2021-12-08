@@ -62,11 +62,9 @@ function setup() {
     correctSound = loadSound('data/correct.wav')
     incorrectSound = loadSound('data/incorrect.wav')
     star.resize(8, 8)
-    passage = new Passage("Hi! My name is Cody Tian. The width and height of" +
-        " my star image is just 1 all over the place. How can I fix it? I" +
-        " just" +
-        " finished my WPM!" +
-        " Let's see if it works. Huh, the stars display as just 🌟s. ", star)
+    passage = new Passage("Hi! Cody just finished my stars for my WPM! Cody also" +
+        " repositioned them to the beginning of the word. Sadly, Cody repeated" +
+        " the code Cody used for the highlight bar. ", star)
 }
 
 
