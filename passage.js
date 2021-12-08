@@ -9,8 +9,9 @@ class Passage {
         // what is our space timestamp list? it keeps track of timestamps
         // for when we reach a space
         this.spaceTimestamps = []
-
         this.star = star
+        // how many corrects have we typed?
+        this.corrects = 0
     }
 
     // renders our text
@@ -285,9 +286,21 @@ class Passage {
         // below is for testing
         fill(0, 0, 100)
         textSize(10)
-        text(this.spaceTimestamps, 0, height-20)
+        // text(this.spaceTimestamps, 0, height-20)
         textSize(30)
         // console.log(this.spaceTimestamps)
+        // what is our accuracy?
+        // take the number of corrects and divide it by the number of
+        // letters typed (this time, no matter if you get it correct or
+        // not). Also, round it after.
+        let accuracy = this.corrects/this.index
+        // we want to represent our accuracy in a percentage, rounded, but
+        // as a string so that we can represent that we're dealing with a
+        // percentage by putting a '%' at the top.
+        let string = str(round(accuracy*100))+'%'
+        // and now we can text our string! We'll put it at the bottom-right
+        // corner. Remember that the position is the bottom-left corner!
+        text(string, 0, height)
     }
 
     // sets our current character to incorrect
@@ -304,6 +317,8 @@ class Passage {
         // we got it correct.
         this.index += 1
         this.correctList.push(true)
+        // also, we should increment out corrects
+        this.corrects++
     }
     // gets our current char
     getCurrentChar() {
